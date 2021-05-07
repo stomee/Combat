@@ -1,10 +1,18 @@
 package stomee.combat
 
+import net.minestom.server.entity.Entity
 import net.minestom.server.entity.GameMode
 import net.minestom.server.entity.LivingEntity
 import net.minestom.server.entity.Player
 import net.minestom.server.entity.damage.DamageType
 import net.minestom.server.event.entity.EntityAttackEvent
+import net.minestom.server.utils.Vector
+
+fun applyKnockback(victim: Entity, attacker: Entity) {
+    val velocity: Vector = attacker.position.direction.multiply(6)
+    velocity.y = 4.0
+    victim.velocity = velocity
+}
 
 fun handleAttack(event: EntityAttackEvent) = with(event) {
 
