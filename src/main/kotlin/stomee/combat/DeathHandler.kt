@@ -23,7 +23,10 @@ fun handleDeath(event: PlayerDeathEvent) = with(event) {
 
     player.inventory.clear()
 
-    deathText = player.name
+    val deathMessage = player.name
         .append(Component.space())
         .append(Component.text("died"))
+
+    deathText = deathMessage
+    chatMessage = deathMessage
 }
