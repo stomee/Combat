@@ -21,9 +21,12 @@ fun handleAttack(event: EntityAttackEvent) = with(event) {
         return
 
     // Players in creative can't take damage
-    if (target is Player && (target as Player).gameMode == GameMode.CREATIVE) {
+    if (target is Player && (target as Player).gameMode == GameMode.CREATIVE)
         return
-    }
+
+    // If it can't be attacked return
+    if (ImmunityHandler.isImmune(target))
+        return
 
     if (target is LivingEntity) {
 
@@ -34,6 +37,8 @@ fun handleAttack(event: EntityAttackEvent) = with(event) {
         livingTarget.damage(DamageType.fromEntity(entity), 1f)
         applyKnockback(livingTarget, entity)
     }
+
+    ImmunityHandler.triggerImmune(target)
 
 
 }
