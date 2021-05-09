@@ -1,6 +1,7 @@
 package stomee.combat
 
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
 import net.minestom.server.entity.Player
 import net.minestom.server.entity.damage.EntityDamage
 import net.minestom.server.event.entity.EntityDeathEvent
@@ -25,7 +26,7 @@ fun handleDeath(event: PlayerDeathEvent) = with(event) {
 
     val deathMessage = player.name
         .append(Component.space())
-        .append(Component.text("died"))
+        .append(Component.text("died", NamedTextColor.RED))
 
     deathText = deathMessage
     chatMessage = deathMessage
