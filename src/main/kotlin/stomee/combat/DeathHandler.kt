@@ -2,24 +2,21 @@ package stomee.combat
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import net.minestom.server.entity.ItemEntity
 import net.minestom.server.entity.Player
 import net.minestom.server.entity.damage.EntityDamage
 import net.minestom.server.event.entity.EntityDeathEvent
 import net.minestom.server.event.player.PlayerDeathEvent
+import net.minestom.server.utils.time.TimeUnit
 
 fun handleDeath(event: PlayerDeathEvent) = with(event) {
 
-    if (player.lastDamageSource is EntityDamage) {
-        val entityDamageSource = player.lastDamageSource as EntityDamage
+    player.inventory.itemStacks.forEach {
+        val entity = ItemEntity(it, player.position, player.instance!!)
 
-        if (entityDamageSource.source is Player) {
+        entity.setInstance(player.instance!!, player.position)
 
-            val playerSource = entityDamageSource.source as Player
-
-            player.inventory.itemStacks.forEach {
-                playerSource.inventory.addItemStack(it)
-            }
-        }
+        entity.setPickupDelay(30, TimeUnit.TICK)
     }
 
     player.inventory.clear()
